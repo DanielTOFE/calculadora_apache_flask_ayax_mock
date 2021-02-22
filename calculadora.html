@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- Etiqueta para adaptar a @media -->
+  <LINK REL="stylesheet" TYPE="text/css" HREF="estiloscalculadora.css"><!-- Enlace hoja estilos -->
+  <script>
+  function key_operator_click(op){
+    window.operator = op;
+    window.op2 = window.op1;
+    window.op1 = 0;
+  }
+  
+  function key_show_result_click(){
+    my_ajax = new XMLHttpRequest();
+    my_ajax.onreadystatechange = function() {
+      if (this.readyState == 4 && (this.status >= 200 && this.status < 300)){
+      var resposta = JSON.parse(this.responseText);
+      var resultat = resposta.resultat;
+      document.getElementById("result_screen").innerHTML = resultat;
+      window.op1 = 0;
+      window.ops2 = 0;
+  
+    }
+  };
+  my_ajax.open("GET", "http://localhost:5000/calc/"+ operator + "/"+window.op1.toString() + "/" + window.op2.toString())
+  }</script>
+</head>
+<!-- Empieza codigo calculadora html-->
+  <form name="calculator">
+
+    <input type="textfield" name="ans" value="">
+    <br>
+    <input type="button" value="1">
+    <input type="button" value="2">
+    <input type="button" value="3">
+    <input type="button" value="+">
+    <br>
+    <input type="button" value="4">
+    <input type="button" value="5">
+    <input type="button" value="6">
+    <input type="button" value="-">
+    <br>
+    <input type="button" value="7">
+    <input type="button" value="8">
+    <input type="button" value="9">
+    <input type="button" value="*">
+    <br>
+    <input type="button" value="0">
+    <input type="reset" value="c">
+    <input type="button" value="/">
+    <input type="button" value="=">
+    </form>
+<!-- Finaliza codigo calculadora html -->
